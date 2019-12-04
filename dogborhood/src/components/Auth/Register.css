@@ -1,0 +1,8 @@
+.form-container {
+    width: 30vw;
+    margin: 50px auto;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    box-shadow: 5px;
+    padding: 20px;
+}

@@ -1,0 +1,31 @@
+.user-details {
+    border: 1px solid rgba(100, 149, 237, .6);
+    border-radius: 5px;
+    max-width: 400px;
+    height: 700px;
+    margin: 20px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .avatar-container {
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    text-align: center;
+    display: inline-block;
+    margin: 20px 0px 40px 0px;
+  }
+    
+  #avatar {
+    height: auto;
+    max-width: 100%;
+    position: relative;
+    text-align: center;
+    object-fit: cover;
+    align-content: center;
+  }
+  
+  #edit {
+    margin: 30px;
+  }
