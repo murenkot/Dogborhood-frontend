@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
 
 // import Form from 'react-bootstrap/Form';
 // import Button from 'react-bootstrap/Button';
@@ -18,6 +20,7 @@ class Register extends Component {
     email: '',
     password: '',
     password2: '',
+    latLng: '',
   };
 
   handleChange = (event) => {
@@ -27,7 +30,7 @@ class Register extends Component {
     });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = () => {
     // event.preventDefault();
     console.log(this.state);
     axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, this.state)
@@ -40,12 +43,27 @@ class Register extends Component {
       .catch((err) => console.log(err));
   }
 
+  getCoordinates = (event) => {
+    event.preventDefault();
+    console.log("Getting coordinates......")
+    let fullAddress = this.state.street + ", " + this.state.city + ", " + this.state.state + " " + this.state.zipcode;
+    console.log(fullAddress);
+    geocodeByAddress(fullAddress).then(
+      results => getLatLng(results[0]).then(latLng => {
+          console.log(latLng)
+          this.setState({
+              latLng: latLng,
+          }, this.handleSubmit)
+      })
+    )
+}
+
   render() {
     return (
     
     <div className="form-container">
         <button onClick={this.props.handleSwitch}>Login</button>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.getCoordinates}>
 
             <h3>Sign Up</h3>
             <div>

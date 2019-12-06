@@ -21,7 +21,30 @@
   color: #09d3ac;
 } */
 
-body {
-  width: 80vw;
+.container {
+  width: 100vw;
   margin: auto;
+}
+
+.flex-row-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin:0;
+}
+
+.table-container {
+  display: table; 
+}
+
+/* .userInfo {
+  width: 70%;
+  margin: 20px;
+  display: table; 
+  height: 150px; 
+} */
+
+.cell {
+  display: table-cell;
+  vertical-align: middle;
 }

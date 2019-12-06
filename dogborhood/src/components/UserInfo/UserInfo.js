@@ -7,13 +7,22 @@ const UserInfo = (props) => {
 
     return (
       <div className="user-details">
-        <div className="avatar-container">
-          <img id="avatar" src={props.profile.photo} alt="avatar"></img>
+        <div className="flex-row-container">
+          <div className="userInfo">
+            <div className="cell">
+              <h3>{props.userInfo.ownerName} & {props.userInfo.dogName}</h3>
+              <p>{props.userInfo.address.city}</p>
+              <p>{props.userInfo.address.zipcode}</p>
+            </div>
+            
+          </div>
+         
+          <div className="avatar-container">
+            <img id="avatar" src={props.userInfo.avatar} alt="avatar"></img>
+          </div>
         </div>
-        <h3>{props.profile.username}</h3>
-        <p>email: {props.profile.email}</p>
-        <p>Current city: {props.profile.currentCity}</p>
-        <Button id="edit" name="edit-profile" onClick={props.editMode} variant="outline-secondary">Edit</Button>
+       
+        {/* <Button id="edit" name="edit-profile" onClick={props.editMode} variant="outline-secondary">Edit</Button> */}
       </div>
     )
   }
