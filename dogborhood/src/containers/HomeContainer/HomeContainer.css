@@ -1,0 +1,28 @@
+.wide {
+    min-width: 1000px;
+}
+.main-map-container {
+    margin: 0px 0;
+    display: inline;
+    max-width: 50%;
+    min-width: 660px;
+    position: fixed;
+    left: 47%;
+    /* z-index: -1; */
+}
+
+.main-posts-container {
+    display: inline;
+    max-width: 50%;
+    min-width: 200px;
+
+
+}
+
+
+.flex-main-container {
+    display: flex;
+    flex-direction: row;
+    /* padding: 0;
+    margin:0; */
+  }

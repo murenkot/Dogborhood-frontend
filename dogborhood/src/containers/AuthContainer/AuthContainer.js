@@ -21,7 +21,7 @@ class AuthContainer extends Component {
             <div>
                 {this.state.login ?
                 <Login handleSwitch={this.handleSwitch} setCurrentUser={this.props.setCurrentUser}/> :
-                <Register handleSwitch={this.handleSwitch} setCurrentUser={this.props.setCurrentUser}/>
+                <Register refreshPage={this.props.refreshPage} handleSwitch={this.handleSwitch} setCurrentUser={this.props.setCurrentUser}/>
                 }
             </div>
         )

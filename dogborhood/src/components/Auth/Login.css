@@ -1,0 +1,52 @@
+.auth {
+    margin-top: 200px;  
+}
+
+.auth-form {
+    width: 300px;
+    border: 1px solid #737373;  
+    padding: 20px;
+
+}
+
+.auth-button-container {
+    width: 100%;
+    display: flex;
+}
+
+.auth-button-container button {
+    width: 50%;
+}
+
+.body {
+    background-color: cornsilk;
+    padding: 0;
+}
+
+.input-login {
+    width: 95%;
+}
+
+.form-container-login-x {
+    width: 30vw;
+    min-width: 300px;
+    max-width: 400px;
+
+    margin: 50px auto;
+    margin-top: 150px;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    box-shadow: 5px;
+    padding: 20px;
+    padding-left: 35px;
+    font-size: 14px;
+}
+
+.bb {
+    height: 40px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #adadad;
+    border-radius: 4px;
+
+}

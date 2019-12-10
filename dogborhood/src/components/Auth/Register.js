@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import {withRouter} from 'react-router-dom';
 
 
 // import Form from 'react-bootstrap/Form';
@@ -21,6 +22,8 @@ class Register extends Component {
     password: '',
     password2: '',
     latLng: '',
+    lng: '',
+    lat: '',
   };
 
   handleChange = (event) => {
@@ -33,11 +36,15 @@ class Register extends Component {
   handleSubmit = () => {
     // event.preventDefault();
     console.log(this.state);
-    axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, this.state)
+    axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, this.state, {
+      withCredentials: true,
+    })
       .then((res) => {
         console.log(res);
+        console.log(this.props.setCurrentUser);
         this.props.setCurrentUser(res.data.data);
-        this.props.history.push(`/users/${res.data.data}`);
+        this.props.history.push(`/`);
+        // this.props.refreshPage();
 
       })
       .catch((err) => console.log(err));
@@ -47,12 +54,13 @@ class Register extends Component {
     event.preventDefault();
     console.log("Getting coordinates......")
     let fullAddress = this.state.street + ", " + this.state.city + ", " + this.state.state + " " + this.state.zipcode;
-    console.log(fullAddress);
+    // console.log(fullAddress);
     geocodeByAddress(fullAddress).then(
       results => getLatLng(results[0]).then(latLng => {
           console.log(latLng)
           this.setState({
-              latLng: latLng,
+              lat: latLng.lat,
+              lng: latLng.lng,
           }, this.handleSubmit)
       })
     )
@@ -62,107 +70,69 @@ class Register extends Component {
     return (
     
     <div className="form-container">
-        <button onClick={this.props.handleSwitch}>Login</button>
+        <div className="submit-button-container">
+          <button id="switch-button" onClick={this.props.handleSwitch}>Login</button>
+        </div>
         <form onSubmit={this.getCoordinates}>
 
             <h3>Sign Up</h3>
             <div>
-                <label htmlFor="email">Email</label>
-                <input onChange={this.handleChange} type="email" id="email" name="email" value={this.state.email} placeholder="Enter email"   />
+                <label className="label" htmlFor="email">Email</label><br/>
+                <input className="input-big" onChange={this.handleChange} type="email" id="email" name="email" value={this.state.email} placeholder="Enter email"   />
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input onChange={this.handleChange} type="password" id="password" name="password" placeholder="Enter your password" />
+            <div className="flex-row-container">
+              <div className="input-container">
+                  <label className="label" htmlFor="password">Password</label>
+                  <input className="inline-element password" onChange={this.handleChange} type="password" id="password" name="password" placeholder="Enter your password" />
+              </div>
+              <div className="input-container">
+                  <label className="label" htmlFor="password2">Confirm Password</label>
+                  <input className="inline-element password2" onChange={this.handleChange} type="password" id="password2" name="password2" placeholder="Confirm your password"   />
+              </div>
             </div>
-            <div>
-                <label htmlFor="password2">Confirm Password</label>
-                <input onChange={this.handleChange} type="password" id="password2" name="password2" placeholder="Confirm your password"   />
-            </div>
+            <br/>
             <p>Introduce yourself</p>
-            <div>
-                <label htmlFor="ownerName">Your Name</label>
-                <input onChange={this.handleChange} type="text" id="ownerName" name="ownerName" placeholder="Enter your name" />
+            <div className="flex-row-container">
+              <div className="input-container">
+                  <label className="label" htmlFor="ownerName">Your Name</label><br/>
+                  <input className="password" onChange={this.handleChange} type="text" id="ownerName" name="ownerName" placeholder="Enter your name" />
+              </div>
+              <div className="input-container">
+                  <label className="label" htmlFor="dogName">Your Dog's Name</label><br/>
+                  <input className="password" onChange={this.handleChange} type="text" id="dogName" name="dogName" placeholder="Enter your dog's name" />
+              </div>
             </div>
-            <div>
-                <label htmlFor="dogName">Your Dog's Name</label>
-                <input onChange={this.handleChange} type="text" id="dogName" name="dogName" placeholder="Enter your dog's name" />
-            </div>
+            <br/>
             <p>Where do you live?</p>
             <div>
-                <label htmlFor="street">Sreet</label>
-                <input onChange={this.handleChange} type="text" id="street" name="street" placeholder="111 Green Avenue" />
+                <label className="label" htmlFor="street">Sreet</label><br/>
+                <input className="input-big" onChange={this.handleChange} type="text" id="street" name="street" placeholder="111 Green Avenue" />
             </div>
-            <div>
-                <label htmlFor="city">City</label>
-                <input onChange={this.handleChange} type="text" id="city" name="city" placeholder="San Francisco" />
+            <div className="flex-row-container">
+
+              <div className="input-container">
+                  <label className="label" htmlFor="city">City</label><br/>
+                  <input className="password" onChange={this.handleChange} type="text" id="city" name="city" placeholder="San Francisco" />
+              </div>
+              <div>
+                  <label className="label" htmlFor="state">State</label><br/>
+                  <select id="state" name="state" onChange={this.handleChange} value={this.state.state}>
+                      <option name="state" value="select">...</option>
+                      <option name="state" value="CA">CA</option>
+                  </select>
+              </div>
+              <div className="zipcode-container">
+                  <label className="label" htmlFor="zipcode">Zipcode</label><br/>
+                  <input id="zipcode" onChange={this.handleChange} type="text" id="zipcode" name="zipcode" placeholder="94111" />
+              </div>
             </div>
-            <div>
-                <label htmlFor="state">State</label>
-                <select name="state" onChange={this.handleChange} value={this.state.state}>
-                    <option name="state" value="select">...</option>
-                    <option name="state" value="CA">CA</option>
-                </select>
-            </div>
-            <div>
-                <label htmlFor="zipcode">Zipcode</label>
-                <input onChange={this.handleChange} type="text" id="zipcode" name="zipcode" placeholder="94111" />
-            </div>
-            <button type="submit">Sign Up</button>
+
+            {/* <button className="btn btn-primary float-right" type="submit">Sign Up</button> */}
         </form>
+        <div className="submit-button-container">
+          <button id="submit" type="submit">Sign Up</button>
+        </div>
 
-    {/* <Form>
-        <Form.Row>
-            <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-            <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-
-        </Form.Row>
-
-  <Form.Group controlId="formGridAddress1">
-    <Form.Label>Address</Form.Label>
-    <Form.Control placeholder="1234 Main St" />
-  </Form.Group>
-
-  <Form.Row>
-    <Form.Group as={Col} controlId="formGridCity">
-      <Form.Label>City</Form.Label>
-      <Form.Control />
-    </Form.Group>
-
-    <Form.Group as={Col} controlId="formGridState">
-      <Form.Label>State</Form.Label>
-      <Form.Control as="select">
-        <option>Choose...</option>
-        <option>...</option>
-      </Form.Control>
-    </Form.Group>
-
-    <Form.Group as={Col} controlId="formGridZip">
-      <Form.Label>Zip</Form.Label>
-      <Form.Control />
-    </Form.Group>
-  </Form.Row>
-
-  <Form.Group id="formGridCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form> */}
     </div>
 
     
@@ -170,4 +140,4 @@ class Register extends Component {
   }
 };
 
-export default Register;
+export default withRouter(Register);

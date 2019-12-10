@@ -1,8 +1,77 @@
 .form-container {
-    width: 30vw;
+    width: 40vw;
+    min-width: 400px;
+    min-width: 500px;
+
     margin: 50px auto;
+    margin-top: 150px;
     border: 1px solid #737373;
     border-radius: 5px;
     box-shadow: 5px;
     padding: 20px;
+    padding-left: 35px;
+    font-size: 14px;
 }
+
+.password {
+    width: 90%;
+    margin-right: 5%;
+    
+}
+
+.password2 {
+    width: 90%;
+
+}
+
+.input-container {
+    width: 50%;
+}
+
+.input-big {
+    width: 95%;
+}
+
+input {
+    padding: 0 10px;
+}
+
+.label{
+    margin: 5px 0 0 0px;
+    color: #737373;
+}
+
+#state {
+    height: 20px;
+    margin-right: 17px;
+}
+
+.zipcode-container {
+    width: 29.5%;
+    overflow: hidden;
+}
+
+#zipcode {
+    width: 100%;
+}
+
+.submit-button-container {
+    text-align: right;
+    width: 95%;
+}
+#submit {
+    margin: 20px;
+    height: 30px;
+    width: 113px;
+}
+
+#submit:hover {
+    background-color: #adadad;
+}
+
+#switch-button {
+    /* margin: 20px; */
+    height: 30px;
+    width: 113px;
+}
+

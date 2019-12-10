@@ -3,10 +3,9 @@ import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 
-
 const UserMapComponent = compose(
     withProps({
-      googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCn2Y3D6UIcU_NpTPal4dX528RsINwTnvM",
+      googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API}`,
       loadingElement: <div style={{ height: `100%` }} />,
       containerElement: <div style={{ height: `400px` }} />,
       mapElement: <div style={{ height: `100%` }} />,
@@ -16,10 +15,10 @@ const UserMapComponent = compose(
   )((props) =>
     <GoogleMap
       defaultZoom={14}
-      defaultCenter={{ lat: Number(props.coordinates.latitude), lng: Number(props.coordinates.longitude) }}
+      defaultCenter={{ lat: Number(props.lat), lng: Number(props.lng) }}
     >
-        {console.log( typeof Number(props.coordinates.latitude))}
-      {props.isMarkerShown && <Marker position={{ lat: Number(props.coordinates.latitude), lng: Number(props.coordinates.longitude) }} />}
+        {/* {console.log( typeof Number(props.coordinates.latitude))} */}
+      {props.isMarkerShown && <Marker position={{ lat: Number(props.lat), lng: Number(props.lng) }} />}
       {/* {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />} */}
 
     </GoogleMap>

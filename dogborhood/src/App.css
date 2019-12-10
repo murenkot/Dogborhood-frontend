@@ -22,19 +22,26 @@
 } */
 
 .container {
-  width: 100vw;
-  margin: auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 75px;
+  min-width: 900px;
 }
 
 .flex-row-container {
   display: flex;
   flex-direction: row;
-  padding: 0;
-  margin:0;
+  /* padding: 0;
+  margin:0; */
 }
 
 .table-container {
   display: table; 
+}
+
+.inline-element {
+  display: inline;
 }
 
 /* .userInfo {

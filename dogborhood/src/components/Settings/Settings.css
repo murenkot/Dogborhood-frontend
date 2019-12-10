@@ -1,5 +1,5 @@
 .settings-container {
-    width: 60vw;
+    width: 55%;
     margin: auto;
 }
 
@@ -15,4 +15,37 @@
     display: table;
     height: 150px; 
     width: 300px;
+}
+
+.settings-page-container {
+    margin-top: 90px;
+}
+.settings-switch-buttons-container {
+    margin: 0 63px;
+}
+
+.settings-switch-button{
+    height: 40px;
+    width: 150px;
+
+}
+
+
+.settings-titles {
+    margin: 0;
+}
+
+.bb {
+    height: 40px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #adadad;
+    border-radius: 4px;
+
+}
+
+#state {
+    box-sizing: border-box;
+    height: 40px;
+
 }

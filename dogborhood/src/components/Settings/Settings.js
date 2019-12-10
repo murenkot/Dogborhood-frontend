@@ -22,16 +22,22 @@ class Settings extends Component {
         fullAddress: '',
         latLng: '',
         storageref: firebase.storage().ref(),
+        lat: '',
+        lng: '',
+
 
     }
 
     componentDidMount = () => {
+        console.log("componentDidMount...")
         this.getUserInfo();
     }
 
     getUserInfo = () => {
+        console.log("getUserInfo...")
+
         let userId = this.props.currentUser;
-        axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/users/byId/${userId}`, {
             withCredentials: true,
           })
             .then(res => {
@@ -41,10 +47,12 @@ class Settings extends Component {
                 ownerName: res.data.data.ownerName,
                 dogName: res.data.data.dogName,
                 avatar: res.data.data.avatar,
-                street: res.data.data.address.street,
-                city: res.data.data.address.city,
-                state: res.data.data.address.state,
-                zipcode: res.data.data.address.zipcode,
+                street: res.data.data.street,
+                city: res.data.data.city,
+                state: res.data.data.state,
+                zipcode: res.data.data.zipcode,
+                lat: res.data.data.lat,
+                lng: res.data.data.lng,
                 latLng: res.data.data.coordinates
               });
             })
@@ -58,10 +66,12 @@ class Settings extends Component {
         let fullAddress = this.state.street + ", " + this.state.city + ", " + this.state.state + " " + this.state.zipcode;
         console.log(fullAddress);
         geocodeByAddress(fullAddress).then(
-            results => getLatLng(results[0]).then(latLng => {
+            results => getLatLng(results[0])
+            .then(latLng => {
                 console.log(latLng)
                 this.setState({
-                    latLng: latLng,
+                    lat: latLng.lat,
+                    lng: latLng.lng,
                 }, this.saveChanges)
             })
         )
@@ -81,19 +91,19 @@ class Settings extends Component {
             ownerName: this.state.ownerName,
             dogName: this.state.dogName,
             avatar: this.state.avatar,
-            address: {
-                street: this.state.street,
-                city: this.state.city,
-                state: this.state.state,
-                zipcode: this.state.zipcode,
-            },
-            coordinates: {
-                longitude: this.state.latLng.lng,
-                latitude: this.state.latLng.lat,
-            }
+            street: this.state.street,
+            city: this.state.city,
+            state: this.state.state,
+            zipcode: this.state.zipcode,
+            // coordinates: {
+            //     longitude: this.state.latLng.lng,
+            //     latitude: this.state.latLng.lat,
+            // },
+            lat: this.state.lat,
+            lng: this.state.lng,
         }
 
-        axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}/update`, body, {
+        axios.put(`${process.env.REACT_APP_API_URL}/users/update/${userId}`, body, {
             withCredentials: true,
         })
         .then(()=> this.props.history.push(`/user/${userId}`))
@@ -117,11 +127,22 @@ class Settings extends Component {
 
     render () {
         return (
-            <div className="settings-container">
+            <div className="flex-row-container settings-page-container">
+                <div className="settings-switch-buttons-container">
+                    <div className="settings-switch-button">
+                        <span><strong>Edit Profile</strong></span>
+                    </div>
+                    <div className="settings-switch-button">
+                        <span>Privacy</span>
+                    </div>
+                    <div className="settings-switch-button">
+                        <span>Delete Profile</span>
+                    </div>
+                </div>
+                <div className="settings-container">
                 <h3>Edit Profile</h3>
                 <p>People on Dogborhood will get to know you with the info below</p>
                 <form onSubmit={this.getCoordinates}>
-                    <p>Photo </p>
                     <div className="flex-row-container">
                         <div className="avatar-container">
                             <img id="avatar" src={this.state.avatar && this.state.avatar} alt="avatar"></img>
@@ -129,48 +150,57 @@ class Settings extends Component {
                         <div className="table-container change-photo-button-container">
                             {/* <button id="change-photo-button">Change photo</button> */}
                             <input id="change-photo-button" type="file" onChange={ (e) => this.fileSelectedHandler(e.target.files) } />
-
-
                         </div>
+                    </div>
+                   
+                   
+                    <p className="settings-titles">NAMES</p>
+                    <div className="flex-row-container">
 
-                    </div>
-                   
-                   
-                    
-                    <p>NAMES</p>
-                    <div>
-                        <label htmlFor="ownerName">Your Name</label>
-                        <input onChange={this.handleChange} type="text" id="ownerName" name="ownerName" value={this.state.ownerName && this.state.ownerName } />
-                    </div>
-                    <div>
-                        <label htmlFor="dogName">Your Dog's Name</label>
-                        <input onChange={this.handleChange} type="text" id="dogName" name="dogName" value={this.state.dogName && this.state.dogName } />
+                        <div className="input-container">
+                            <label className="label" htmlFor="ownerName">Your Name</label><br/>
+                            <input className="inline-element password bb" onChange={this.handleChange} type="text" id="ownerName" name="ownerName" value={this.state.ownerName && this.state.ownerName } />
+                        </div>
+                        <div className="input-container">
+                            <label className="label" htmlFor="dogName">Your Dog's Name</label><br/>
+                            <input className="inline-element password bb" onChange={this.handleChange} type="text" id="dogName" name="dogName" value={this.state.dogName && this.state.dogName } />
+                        </div>
                     </div>
                     <br />
-                    <p>ADDRESS</p>
+                    <p className="settings-titles">ADDRESS</p>                   
+
                     <div>
-                        <label htmlFor="street">Street</label>
-                        <input onChange={this.handleChange} type="text" id="street" name="street" value={this.state.street && this.state.street } />
+                        <label className="label" htmlFor="street">Street</label><br/>
+                        <input className="bb" onChange={this.handleChange} type="text" id="street" name="street" value={this.state.street && this.state.street } />
                     </div>
-                    <div>
-                        <label htmlFor="city">City</label>
-                        <input onChange={this.handleChange} type="text" id="city" name="city" value={this.state.city && this.state.city } />
-                    </div>
-                    <div>
-                        <label htmlFor="state">State</label>
-                        <select name="state" onChange={this.handleChange} value={this.state.state && this.state.state }>
-                            <option name="state" value="select">...</option>
-                            <option name="state" value="CA">CA</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="zipcode">Zipcode</label>
-                        <input onChange={this.handleChange} type="text" id="zipcode" name="zipcode" value={this.state.zipcode && this.state.zipcode } />
+                    <div className="flex-row-container">
+
+                        <div className="input-container">
+                            <label className="label" htmlFor="city">City</label><br/>
+                            <input className="password bb" onChange={this.handleChange} type="text" id="city" name="city" value={this.state.city && this.state.city } />
+                        </div>
+                        <div>
+                            <label className="label" htmlFor="state">State</label><br/>
+                            <select className="bb" id="state" name="state" onChange={this.handleChange} value={this.state.state && this.state.state }>
+                                <option name="state" value="select">...</option>
+                                <option name="state" value="CA">CA</option>
+                            </select>
+                        </div>
+                        <div className="zipcode-container">
+                            <label className="label" htmlFor="zipcode">Zipcode</label><br/>
+                            <input className="bb" onChange={this.handleChange} type="text" id="zipcode" name="zipcode" value={this.state.zipcode && this.state.zipcode } />
+                        </div>
                     </div>
                     <br />
-                    <button type="submit">Save</button>
+                    <div className="submit-button-container">
+
+                        <button id="submit" type="submit">Save</button>
+                    </div>
                 </form>
             </div>
+
+            </div>
+            
         )
     }
 }

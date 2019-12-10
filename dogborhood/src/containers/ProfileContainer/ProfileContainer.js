@@ -16,34 +16,58 @@ class ProfileContainer extends Component {
 
     state = {
         user: null,
+        posts: null,
         edit: false,
         geocoder: null,
         map: null,
         showNewPostForm: false,
-
     }
 
     componentDidMount = () => {
         this.getUserInfo();
+        this.getUserPosts();
     }
+
+    componentDidUpdate = () => {
+        if (this.state.user && this.props.match.url.split('/')[2] !== this.state.user._id) {
+            this.getUserInfo();
+            this.getUserPosts();;
+        }
+    }
+
+
   
     getUserInfo = () => {
         let url = this.props.match.url;
         let userId = url.split('/')[2];
-        console.log(url);
-        console.log(userId);
 
-        axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/users/byId/${userId}`, {
             withCredentials: true,
           })
             .then(res => {
                 console.log(res);
               this.setState({
                 user: res.data.data,
-              }, ()=>{console.log(this.state.user.coordinates)});
+              });
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err)) ;
     };
+
+    getUserPosts = () => {
+        let url = this.props.match.url;
+        let userId = url.split('/')[2];
+        axios.get(`${process.env.REACT_APP_API_URL}/posts/${userId}`, {
+          withCredentials: true,
+        })
+          .then(res => {
+              console.log(res);
+            this.setState({
+              posts: res.data.data,
+            }, ()=>{console.log(this.state.posts)});
+          })
+          .catch(err => console.log(err));
+      }
+    
 
     handlePostFormOpen = () => {
         this.setState((prevState) => {
@@ -51,31 +75,70 @@ class ProfileContainer extends Component {
                 showNewPostForm: !prevState.showNewPostForm
             }
         });
-        console.log('lahseiufbh')
         // this.props.refreshPage();
     };
+
+    updatePostsList = (post) => {
+        console.log("updatePostsList is running");
+        console.log(post);
+        this.setState({
+            posts: this.state.user.posts.concat(post)
+        });
+    }
+
+    showPersonalButtons = () => {
+        // console.log(this.props.currentUser);
+        // console.log(localStorage.getItem('uid'));
+        // console.log(this.state.user._id);
+        if (localStorage.getItem('uid') === this.state.user._id) {
+            return (
+                <>
+                    <img src={plus} onClick={this.handlePostFormOpen}/>
+                    <img src={pencil} onClick={()=> this.props.history.push('/settings')}/>
+                </>
+            )
+        }
+        
+    }
+
+    deletePost = (postId) => {
+        console.log("ID of deleted post: "+ postId);
+        axios.delete(`${process.env.REACT_APP_API_URL}/posts/${postId}`, {
+            withCredentials: true,
+          })
+            .then(res => {
+                console.log(res.data.data);
+              this.setState({
+                posts: this.state.posts.filter((post)=>{return post._id !== postId} ),
+              });
+            })
+            .catch(err => console.log(err)) ;
+    }
+
+    refreshPage = () => {
+        document.location.reload();
+    }
 
     render () {
 
 
         return(
             <>
+            {this.props.currentUser && console.log(this.props.currentUser)}
                 <div className="profile-buttons-container">
-                {/* <i class="fas fa-pencil-alt fa-2x"></i> */}
-                    <img src={plus} onClick={this.handlePostFormOpen}/>
-                    <img src={pencil} onClick={()=> this.props.history.push('/settings')}/>
+                    { this.state.user && this.showPersonalButtons()}
+                    {/* <img src={plus} onClick={this.handlePostFormOpen}/>
+                    <img src={pencil} onClick={()=> this.props.history.push('/settings')}/> */}
                 </div>
-                {this.state.showNewPostForm && <NewPostForm handlePostFormOpen={this.handlePostFormOpen} showNewPostForm={this.state.showNewPostForm}/>}
-
+                {this.state.showNewPostForm && <NewPostForm updatePostsList={this.updatePostsList} handlePostFormOpen={this.handlePostFormOpen} showNewPostForm={this.state.showNewPostForm}/>}
 
                 {this.state.user && <UserInfo userInfo={this.state.user} />}
                 <div className="maps-container">
-                    {this.state.user && <UserMapComponent coordinates={this.state.user.coordinates} isMarkerShown/>}
+                    {this.state.user && <UserMapComponent lat={this.state.user.lat} lng={this.state.user.lng} isMarkerShown/>}
                 </div>
                 <div className="post-container">
-                    {this.state.user && this.state.user.posts.map(post => <Post post={post}/>)}
+                    {this.state.posts && this.state.posts.map(post => <Post currentUser={this.props.currentUser} key={post._id} deletePost={this.deletePost} post={post}/>)}
                 </div>
-
             </>
 
         )

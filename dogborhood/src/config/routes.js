@@ -12,7 +12,7 @@ export default ({ currentUser, setCurrentUser }) => (
     <Route exact path='/' render={() => <HomeContainer currentUser={currentUser} setCurrentUser={setCurrentUser} />}/>
     {/* <Route path='/register' component={Register} />
     <Route path='/login' render={() => <Login currentUser={currentUser} setCurrentUser={setCurrentUser} />} /> */}
-    <Route exact path='/user/:id' component={ProfileContainer} />
+    <Route exact path='/user/:id' currentUser={currentUser} component={ProfileContainer} />
     <Route exact path='/settings' render={()=> <Settings currentUser={currentUser} />} />
   
   </Switch>

@@ -11,10 +11,9 @@ const UserInfo = (props) => {
           <div className="userInfo">
             <div className="cell">
               <h3>{props.userInfo.ownerName} & {props.userInfo.dogName}</h3>
-              <p>{props.userInfo.address.city}</p>
-              <p>{props.userInfo.address.zipcode}</p>
+              <p>{props.userInfo.city}</p>
+              <p>{props.userInfo.zipcode}</p>
             </div>
-            
           </div>
          
           <div className="avatar-container">

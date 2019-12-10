@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import './Login.css';
+
 class Login extends Component {
   state = {
     email: '',
@@ -20,38 +22,39 @@ class Login extends Component {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.props.setCurrentUser(res.data.data);
         this.props.history.push('/');
       })
+      .then(()=> console.log(this.props.currentUser))
       .catch((err) => console.log(err));
   }
 
   render() {
-    // console.log('Hello From Render', this.state.address && this.state.address.street);
-    console.log(this.props);
-    return (
-      <div className="container mt-4">
-          <div className="row">
-            <div className="col-md-4 offset-md-4">
-            <button onClick={this.props.handleSwitch}>Sign Up</button>
-              <h4 className="mb-3">Login</h4>
-              <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name">Email</label>
-                  <input onChange={this.handleChange} className="form-control form-control-lg" type="email" id="email" name="email" value={this.state.email} />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <input onChange={this.handleChange} className="form-control form-control-lg" type="password" id="password" name="password" value={this.state.password} />
-                </div>
-                <button className="btn btn-primary float-right" type="submit">Login</button>
-              </form>
-            </div>
+
+      return (
+        <div className="form-container-login-x">
+          <div className="submit-button-container">
+            <button id="switch-button" onClick={this.props.handleSwitch}>Sign Up</button>
           </div>
-        </div>
-    )
-  }
+            <h4 className="">Login</h4>
+            <form onSubmit={this.handleSubmit}>
+              <div >
+                <label className="label" htmlFor="name">Email</label><br/>
+                <input className="bb" onChange={this.handleChange} className="input-login" type="email" id="email" name="email" value={this.state.email} />
+              </div>
+              <div >
+                <label className="label" htmlFor="password">Password</label><br/>
+                <input className="bb" onChange={this.handleChange} className="input-login" type="password" id="password" name="password" value={this.state.password} />
+              </div>
+              <div className="submit-button-container">
+                <button id="submit" type="submit">Login</button>
+              </div>              
+            </form>
+          </div>
+      )
+    }
+    
 };
 
 export default withRouter(Login);
