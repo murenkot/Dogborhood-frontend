@@ -32,12 +32,6 @@ class Home extends Component {
 //     }
 // }
 
-  test = () => {
-    console.log("++++++"+localStorage.getItem('uid'))
-    return (
-      <p>You are logged in!</p>
-    )
-  }
 
   getUserInfo = () => {
     let userId = localStorage.getItem('uid')
@@ -105,7 +99,9 @@ class Home extends Component {
         <>
           <div className="flex-row-container wide">
             <div className="main-posts-container">
-              {this.state.posts.map(post => <Post currentUser={this.props.currentUser} post={post} />)}
+              <div className="main-posts-content">
+                {this.state.posts.map(post => <Post currentUser={this.props.currentUser} post={post} />)}
+              </div>
             </div>
 
             <div className="main-map-container">

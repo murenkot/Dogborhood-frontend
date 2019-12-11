@@ -1,24 +1,45 @@
 .wide {
+    max-width: 100%;
     min-width: 1000px;
 }
 .main-map-container {
     margin: 0px 0;
     display: inline;
     max-width: 50%;
-    min-width: 660px;
-    position: fixed;
-    left: 47%;
+    min-width: 600px;
+    /* position: fixed; */
+    margin-left: 15px;
+    left: 51%;
     /* z-index: -1; */
+    
 }
 
 .main-posts-container {
     display: inline;
     max-width: 50%;
     min-width: 200px;
-
+    padding: 0;
+    max-height: 650px;
+    min-height: 500px;
+    overflow: scroll;
+    /* overflow: hidden; */
+    /* overflow-y:auto; */
+    position:relative;
 
 }
 
+.main-posts-content {
+    /* max-height: 1800%; */
+    min-height: 500px;
+    position: relative;
+    float:left;
+
+    /* overflow-y: auto; */
+    overflow: scroll;
+
+
+
+}
 
 .flex-main-container {
     display: flex;
@@ -26,3 +47,14 @@
     /* padding: 0;
     margin:0; */
   }
+
+
+@media only screen and (max-width: 1200px) {
+    .main-map-container {
+        /* left: 630px; */
+        left: 610px;
+        max-width: 30%;
+
+  }
+}
+

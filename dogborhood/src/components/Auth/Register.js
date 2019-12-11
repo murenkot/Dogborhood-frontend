@@ -78,16 +78,16 @@ class Register extends Component {
             <h3>Sign Up</h3>
             <div>
                 <label className="label" htmlFor="email">Email</label><br/>
-                <input className="input-big" onChange={this.handleChange} type="email" id="email" name="email" value={this.state.email} placeholder="Enter email"   />
+                <input className="input-big bb" onChange={this.handleChange} type="email" id="email" name="email" value={this.state.email} placeholder="Enter email"   />
             </div>
             <div className="flex-row-container">
               <div className="input-container">
                   <label className="label" htmlFor="password">Password</label>
-                  <input className="inline-element password" onChange={this.handleChange} type="password" id="password" name="password" placeholder="Enter your password" />
+                  <input className="inline-element password bb" onChange={this.handleChange} type="password" id="password" name="password" placeholder="Enter your password" />
               </div>
               <div className="input-container">
                   <label className="label" htmlFor="password2">Confirm Password</label>
-                  <input className="inline-element password2" onChange={this.handleChange} type="password" id="password2" name="password2" placeholder="Confirm your password"   />
+                  <input className="inline-element password2 bb" onChange={this.handleChange} type="password" id="password2" name="password2" placeholder="Confirm your password"   />
               </div>
             </div>
             <br/>
@@ -95,24 +95,24 @@ class Register extends Component {
             <div className="flex-row-container">
               <div className="input-container">
                   <label className="label" htmlFor="ownerName">Your Name</label><br/>
-                  <input className="password" onChange={this.handleChange} type="text" id="ownerName" name="ownerName" placeholder="Enter your name" />
+                  <input className="password bb" onChange={this.handleChange} type="text" id="ownerName" name="ownerName" placeholder="Enter your name" />
               </div>
               <div className="input-container">
                   <label className="label" htmlFor="dogName">Your Dog's Name</label><br/>
-                  <input className="password" onChange={this.handleChange} type="text" id="dogName" name="dogName" placeholder="Enter your dog's name" />
+                  <input className="password bb" onChange={this.handleChange} type="text" id="dogName" name="dogName" placeholder="Enter your dog's name" />
               </div>
             </div>
             <br/>
             <p>Where do you live?</p>
             <div>
                 <label className="label" htmlFor="street">Sreet</label><br/>
-                <input className="input-big" onChange={this.handleChange} type="text" id="street" name="street" placeholder="111 Green Avenue" />
+                <input className="input-big bb" onChange={this.handleChange} type="text" id="street" name="street" placeholder="111 Green Avenue" />
             </div>
             <div className="flex-row-container">
 
               <div className="input-container">
                   <label className="label" htmlFor="city">City</label><br/>
-                  <input className="password" onChange={this.handleChange} type="text" id="city" name="city" placeholder="San Francisco" />
+                  <input className="password bb" onChange={this.handleChange} type="text" id="city" name="city" placeholder="San Francisco" />
               </div>
               <div>
                   <label className="label" htmlFor="state">State</label><br/>
@@ -123,7 +123,7 @@ class Register extends Component {
               </div>
               <div className="zipcode-container">
                   <label className="label" htmlFor="zipcode">Zipcode</label><br/>
-                  <input id="zipcode" onChange={this.handleChange} type="text" id="zipcode" name="zipcode" placeholder="94111" />
+                  <input className="bb" id="zipcode" onChange={this.handleChange} type="text" id="zipcode" name="zipcode" placeholder="94111" />
               </div>
             </div>
 

@@ -14,7 +14,7 @@ const UserMapComponent = compose(
     withGoogleMap
   )((props) =>
     <GoogleMap
-      defaultZoom={14}
+      defaultZoom={15}
       defaultCenter={{ lat: Number(props.lat), lng: Number(props.lng) }}
     >
         {/* {console.log( typeof Number(props.coordinates.latitude))} */}

@@ -1,0 +1,18 @@
+.auth-container {
+    position: absolute;
+    width: 101vw;
+    left: -1vw;
+    top: -1px;
+    height: 100vh;
+    background-color: white;
+    background-image: url('../HomeContainer/dogs.jpg');
+    background-position: center;
+    background-size: cover;
+    z-index: 10;
+}
+
+.auth-logo {
+    font-size: 26px;
+    position: absolute;
+    margin: 50px;
+}

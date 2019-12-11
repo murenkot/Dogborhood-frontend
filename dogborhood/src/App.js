@@ -5,6 +5,7 @@ import Routes from './config/routes';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 class App extends Component {
@@ -43,6 +44,7 @@ class App extends Component {
         <div className="container">
           <Routes currentUser={this.state.currentUser} setCurrentUser={this.setCurrentUser} />
         </div>
+        <Footer />
 
       </>
     );

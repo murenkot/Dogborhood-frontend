@@ -39,13 +39,13 @@ class Login extends Component {
           </div>
             <h4 className="">Login</h4>
             <form onSubmit={this.handleSubmit}>
-              <div >
+              <div className="">
                 <label className="label" htmlFor="name">Email</label><br/>
-                <input className="bb" onChange={this.handleChange} className="input-login" type="email" id="email" name="email" value={this.state.email} />
+                <input onChange={this.handleChange} className="input-big bb" type="email" id="email" name="email" value={this.state.email} />
               </div>
-              <div >
+              <div className="">
                 <label className="label" htmlFor="password">Password</label><br/>
-                <input className="bb" onChange={this.handleChange} className="input-login" type="password" id="password" name="password" value={this.state.password} />
+                <input onChange={this.handleChange} className="input-login bb" type="password" id="password" name="password" value={this.state.password} />
               </div>
               <div className="submit-button-container">
                 <button id="submit" type="submit">Login</button>
