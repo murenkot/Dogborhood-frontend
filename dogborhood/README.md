@@ -1,3 +1,32 @@
+# Dogborhood 
+Dogborhood is a social media focused on connecting dog owners in a neighborhood. Users can explore the map and see all neighbors and their dogs profiles, to send direct messages to each other, create events and post their storis, photos and videos.
+
+## Technologies used during the project: 
+- Node
+- React
+- JavaScript
+- CSS
+- MongoDB
+- FireBase cloud storage
+- Google Maps API
+
+## Screenshots
+![alt text](https://i.imgur.com/ooh84wy.png)
+
+![alt text](https://i.imgur.com/s3LLDul.png)
+
+### Main Page
+![alt text](https://i.imgur.com/psQeTW0.png)
+
+### Profile Page
+![alt text](https://i.imgur.com/DFHpKq7.png)
+![alt text](https://i.imgur.com/zqYcbvI.png)
+
+### Settings Page
+![alt text](https://i.imgur.com/neLKyEE.png)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
